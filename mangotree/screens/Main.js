@@ -1,24 +1,39 @@
 import React from 'react';
 import { View, Text, Image, Button, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { emulateTree } from '../actions';
 
-const Main = () => (
-  <View style={{
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
+const styles = StyleSheet.create({
+  alternativeLayoutButtonContainer: {
+    margin: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#47A388',
     alignItems: 'center',
-  }}
+  },
+});
+
+const Main = ({ tree, emulateTree }) => (
+
+  <View
+    style={{
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#47A388',
+    }}
   >
-    <View style={{ width: '100%', paddingTop: 0 }}>
-      <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 20 }}>This is Groot</Text>
-      <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 20 }}>he is 0 years old.</Text>
+    <View style={{ width: '100%', paddingTop: 0, alignItems: 'center' }}>
+      <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 20 }}>This is {tree.name}</Text>
+      <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 20 }}>he is {tree.age} years old.</Text>
     </View>
-    <View style={{ width: '100%' }}>
+    <View style={{ width: '100%', alignItems: 'center' }}>
       <Image source={require('../images/0.png')} style={{ width: 200, height: 200 }} />
     </View>
     <View style={styles.alternativeLayoutButtonContainer}>
       <Button
-        onPress={() => console.log('Emulate...')}
+        onPress={() => emulateTree()}
         title="Emulate"
       />
       <Button
@@ -30,12 +45,13 @@ const Main = () => (
   </View>
 );
 
-const styles = StyleSheet.create({
-  alternativeLayoutButtonContainer: {
-    margin: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
+
+const mapStateToProps = state => ({
+  tree: state.tree,
 });
 
-export default Main;
+const mapDispatchToProps = dispatch => ({
+  emulateTree: () => dispatch(emulateTree()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

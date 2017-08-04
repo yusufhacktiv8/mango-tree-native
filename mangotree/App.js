@@ -1,22 +1,37 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import MainScreen from './screens/Main';
+import { Provider } from 'react-redux';
+import store from './stores';
+import AppWithNavigationState from './navigators/AppNavigator';
+// import { StyleSheet, Text, View } from 'react-native';
+// import MainScreen from './screens/Main';
+//
+// export default class App extends React.Component {
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         <MainScreen />
+//       </View>
+//     );
+//   }
+// }
+//
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#47A388',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
 
-export default class App extends React.Component {
+class TreeApp extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <MainScreen />
-      </View>
+      <Provider store={store}>
+        <AppWithNavigationState />
+      </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#47A388',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default TreeApp;
